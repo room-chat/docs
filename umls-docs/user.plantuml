@@ -1,0 +1,32 @@
+@startuml User-Authentication
+
+skinparam SequenceMessageAlignment center
+
+actor user
+participant "Front-end" as frontEnd
+participant BFF as bff
+participant "User Manage" as userManage
+participant Database as database
+
+== User Sign in ==
+user -> frontEnd : user enter sign in
+frontEnd -> bff :  GET /get-user/:accName
+bff -> userManage: GET /check-user/:accName
+userManage -> database: GET /get-user/:accName
+database ---> userManage: response 
+alt account not exist
+    userManage ---> userManage: create account
+    userManage -> database: POST /create-account
+    "database" ---> userManage: response status OK
+else account exist
+    userManage ---> bff: response status DUPLICATE
+end
+' bff ---> frontEnd: response status
+' note right of frontEnd
+'  status response to FE 
+'  and show message 
+'  account has exist
+' end note 
+
+
+@enduml
