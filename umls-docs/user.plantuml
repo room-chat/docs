@@ -5,28 +5,57 @@ skinparam SequenceMessageAlignment center
 actor user
 participant "Front-end" as frontEnd
 participant BFF as bff
+participant Kafka as kafka
 participant "User Manage" as userManage
 participant Database as database
 
-== User Sign in ==
-user -> frontEnd : user enter sign in
-frontEnd -> bff :  GET /get-user/:accName
-bff -> userManage: GET /check-user/:accName
-userManage -> database: GET /get-user/:accName
+== User Sign up ==
+user -> frontEnd : user enter
+frontEnd -> bff :  POST /create-user
+bff -> kafka: PUB create-user
+note right of bff
+    payload: userName, dayOfBirth, address, password
+end note
+kafka -> userManage: PUB create-user
+userManage -> database: GET /user-information/:accountName
 database ---> userManage: response 
 alt account not exist
-    userManage ---> userManage: create account
-    userManage -> database: POST /create-account
+    userManage -> userManage: create account
+    userManage -> database: POST /create-user
     "database" ---> userManage: response status OK
+    userManage ---> kafka: PUB create-user-result (success)
 else account exist
-    userManage ---> bff: response status DUPLICATE
+    userManage ---> kafka: PUB create-user-result (failure)
 end
-' bff ---> frontEnd: response status
-' note right of frontEnd
-'  status response to FE 
-'  and show message 
-'  account has exist
-' end note 
+kafka ---> bff: PUB create-user-result
+bff --> frontEnd: response status
+
+== User Sign in ==
+user -> frontEnd : user enter
+frontEnd -> bff :  POST /authorized-user
+bff -> userManage: POST /authorized-user
+userManage -> database: POST /authorized-user
+database --> userManage : respone information
+userManage -> userManage: check account exist
+alt account exist
+userManage ---> userManage: validate user
+note right of userManage 
+    check account exist then check password is correct and
+    password must be encrypt
+end note
+
+alt authorized success
+    userManage ---> userManage: authorized success
+    userManage ---> bff: respone information
+else authorized failure
+    userManage ---> userManage: authorized failure
+    userManage ---> bff: respone failure
+end
+else account not exist
+userManage ---> bff: response not found user
+end
+
+bff --> frontEnd :  respone information
 
 
 @enduml

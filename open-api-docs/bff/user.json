@@ -1,0 +1,297 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "API room-chat",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4002"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "description": "",
+      "name": "User"
+    }
+  ],
+  "paths": {
+    "/create-user": {
+      "post": {
+        "description": "the api get information specific user",
+        "tags": ["User"],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/CreateUserBodyRequest"
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "example": "200"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The error occur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "The use not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/authorized-user": {
+      "post": {
+        "description": "the api use to authorized user",
+        "tags": ["User"],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/UserAuthorizedBodyRequest"
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthorizedUserInformationRes"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The use not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The error occur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user not access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "The use not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServer"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {},
+    "requestBodies": {
+      "CreateUserBodyRequest": {
+        "description": "User body request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/CreateUserBodySchemas"
+            }
+          }
+        },
+        "required": true
+      },
+      "UserAuthorizedBodyRequest": {
+        "description": "User body request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UserAuthorizedBodySchema"
+            }
+          }
+        },
+        "required": true
+      }
+    },
+    "schemas": {
+      "NotFound": {
+        "description": "Result when not found any data",
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "404"
+          },
+          "message": {
+            "type": "string",
+            "example": "Not Found"
+          }
+        },
+        "required": ["code", "message"]
+      },
+      "BadRequest": {
+        "description": "Result when error occur",
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "400"
+          },
+          "message": {
+            "type": "string",
+            "example": "Bad Request"
+          }
+        },
+        "required": ["code", "message"]
+      },
+      "InternalServer": {
+        "description": "Result when server have error",
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "500"
+          },
+          "message": {
+            "type": "string",
+            "example": "Internal Server"
+          }
+        },
+        "required": ["code", "message"]
+      },
+      "Unauthorized": {
+        "description": "The user don't have permission",
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "401"
+          },
+          "message": {
+            "type": "string",
+            "example": "Unauthorized"
+          }
+        },
+        "required": ["code", "message"]
+      },
+      "AuthorizedUserInformationRes": {
+        "description": "Body object of User",
+        "type": "object",
+        "properties": {
+          "userId": {
+            "description": "The userId show number of user",
+            "type": "number",
+            "example": 1
+          },
+          "accountName": {
+            "description": "The userName show name of user",
+            "type": "string",
+            "example": "ExampleUser"
+          },
+          "address": {
+            "description": "The address show where user live",
+            "type": "string",
+            "example": "American"
+          },
+          "dayOfBirth": {
+            "description": "The dayOfBirth show birthday of user",
+            "type": "string",
+            "example": "2023-12-22"
+          }
+        },
+        "required": ["userId", "userName", "dayOfbirth"]
+      },
+      "CreateUserBodySchemas": {
+        "description": "Body object of User",
+        "type": "object",
+        "properties": {
+          "accountName": {
+            "description": "The accountName show name of user",
+            "type": "string",
+            "example": "ExampleUser"
+          },
+          "address": {
+            "description": "The address show where user live",
+            "type": "string",
+            "example": "American"
+          },
+          "dayOfBirth": {
+            "description": "The dayOfBirth show birth day of user",
+            "type": "string",
+            "example": "2023-12-22"
+          },
+          "password": {
+            "description": "The password use to authorized user",
+            "type": "string",
+            "example": "password"
+          }
+        },
+        "required": ["userName", "birthday", "password"]
+      },
+      "UserAuthorizedBodySchema": {
+        "description": "Body object of User used for authorized",
+        "type": "object",
+        "properties": {
+          "accountName": {
+            "description": "The accountName show name of user",
+            "type": "string",
+            "example": "ExampleUser"
+          },
+          "password": {
+            "description": "The password use to authorized user",
+            "type": "string",
+            "example": "password"
+          }
+        },
+        "required": ["userName", "password"]
+      }
+    }
+  }
+}
