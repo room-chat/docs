@@ -21,14 +21,14 @@
     }
   ],
   "paths": {
-    "/user-information/{accountName}": {
+    "/user-information/{email}": {
       "get": {
         "description": "the api get information specific user",
         "tags": ["User"],
         "parameters": [
           {
             "required": true,
-            "name": "accountName",
+            "name": "email",
             "in": "path",
             "schema": {
               "type": "string"
@@ -67,7 +67,7 @@
             }
           },
           "500": {
-            "description": "The use not found",
+            "description": "The Serve is broker",
             "content": {
               "application/json": {
                 "schema": {
@@ -97,16 +97,6 @@
               }
             }
           },
-          "401": {
-            "description": "The user unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Unauthorized"
-                }
-              }
-            }
-          },
           "400": {
             "description": "The error occur",
             "content": {
@@ -123,16 +113,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/NotFound"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "The use not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InternalServer"
                 }
               }
             }
@@ -203,9 +183,9 @@
             "schema": {
               "type": "object",
               "properties": {
-                "accountName": {
+                "email": {
                   "type": "string",
-                  "example": "ExampleUser"
+                  "example": "ExampleUser@example.com"
                 }
               },
               "required": ["accountName"]
@@ -221,13 +201,21 @@
             "schema": {
               "type": "object",
               "properties": {
-                "accountName": {
+                "email": {
                   "type": "string",
                   "example": "ExampleUser"
                 },
+                "firstName": {
+                  "type": "string",
+                  "example": "firstName"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "lastName"
+                },
                 "password": {
                   "type": "string",
-                  "example": "ExampleUser"
+                  "example": "password"
                 },
                 "dayOfBirth": {
                   "type": "string",
@@ -236,9 +224,17 @@
                 "address": {
                   "type": "string",
                   "example": "Russia"
+                },
+                "city": {
+                  "type": "string",
+                  "example": "Moskva"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2024-01-21"
                 }
               },
-              "required": ["accountName", "password", "dayOfBirth", "address"]
+              "required": ["email", "password"]
             }
           }
         },
@@ -315,15 +311,35 @@
             "type": "number",
             "example": 1
           },
-          "accountName": {
+          "email": {
             "description": "The accountName show name of user",
             "type": "string",
-            "example": "ExampleUser"
+            "example": "ExampleUser@example.com"
           },
           "dayOfBirth": {
             "description": "The dayOfBirth show day of birth user",
             "type": "string",
             "example": "1998-04-02"
+          },
+          "address": {
+            "description": "show address of user",
+            "type": "string",
+            "example": "02 Hoang Hoa Tham"
+          },
+          "city": {
+            "description": "show the city user live",
+            "type": "string",
+            "example": "Da nang"
+          },
+          "firstName": {
+            "description": "show first name user",
+            "type": "string",
+            "example": "John"
+          },
+          "lastName": {
+            "description": "show last name user",
+            "type": "string",
+            "example": "Walker"
           }
         },
         "required": ["userId", "accountName"]
@@ -337,10 +353,10 @@
             "type": "number",
             "example": 1
           },
-          "accountName": {
+          "email": {
             "description": "The accountName show name of user",
             "type": "string",
-            "example": "ExampleUser"
+            "example": "ExampleUser@example.com"
           },
           "password": {
             "description": "The password of user",

@@ -49,32 +49,12 @@
               }
             }
           },
-          "400": {
-            "description": "The error occur",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequest"
-                }
-              }
-            }
-          },
           "401": {
             "description": "The user not access",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Unauthorized"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InternalServer"
                 }
               }
             }
@@ -93,16 +73,16 @@
             "schema": {
               "type": "object",
               "properties": {
-                "accountName": {
+                "email": {
                   "type": "string",
-                  "example": "ExampleUser"
+                  "example": "ExampleUser@example.com"
                 },
                 "password": {
                   "type": "string",
-                  "example": "ExampleUser"
+                  "example": "password"
                 }
               },
-              "required": ["accountName", "password"]
+              "required": ["email", "password"]
             }
           }
         }
@@ -178,23 +158,33 @@
             "type": "number",
             "example": 1
           },
-          "userName": {
-            "description": "The userName show name of user",
+          "email": {
+            "description": "The email of user",
             "type": "string",
-            "example": "ExampleUser"
+            "example": "ExampleUser@example.com"
           },
           "address": {
             "description": "The address show where user live",
             "type": "string",
-            "example": "American"
+            "example": "24A Kofi Kington"
           },
           "dayOfbirth": {
             "description": "The birthday show birthday of user",
             "type": "string",
             "example": "2023-12-22"
+          },
+          "firstName": {
+            "description": "First name of user",
+            "type": "string",
+            "example": "Tony"
+          },
+          "lastName": {
+            "description": "Last name of user",
+            "type": "string",
+            "example": "Stark"
           }
         },
-        "required": ["userId", "userName", "address", "dayOfbirth"]
+        "required": ["userId", "email", "address", "dayOfbirth", "firstName", "lastName"]
       }
     }
   }

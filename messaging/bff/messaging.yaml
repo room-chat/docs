@@ -54,18 +54,27 @@ components:
         data:
           type: object
           properties:
-            accountName:
+            email:
               format: string
-              example: userName
+              example: justexampleemail@example.com
             password:
               format: string
               example: password
             address:
               format: string
-              example: Russia
+              example: '25A King power'
             dayOfBirth:
               format: string
               example: '2022-12-12'
+            city:
+              format: string
+              example: 'Dallas'
+            firstName:
+              format: string
+              example: firstName
+            lastName:
+              format: string
+              example: lastName
 
     CreateUserResult:
       description: This schemas describe payload to return create user result message
@@ -78,8 +87,15 @@ components:
           format: string
           example: create-user-result
         result: 
-          format: enum
-          enum: ['success', 'failure']
-          example: failure
+          type: object
+          properties:
+            message:
+              format: string
+              example: createSuccess
+            code:
+              format: string
+              example: success
+            
+            
 
       
