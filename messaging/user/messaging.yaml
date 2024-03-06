@@ -19,63 +19,19 @@ servers:
 defaultContentType: application/json
 
 channels: 
-  CHAT-APP-MESSAGING/create-user:
-    publish:
-      message:
-        $ref: '#/components/messages/CreateUser'
   CHAT-APP-MESSAGING/create-user-result:
-    subscribe:
+    publish:
       message:
         $ref: '#/components/messages/CreateUserResult'
     
 components:
   messages:
-    CreateUser:
-      description: This use to pass request create user
-      summary: Messsage use to create user
-      payload:
-        $ref: '#/components/schemas/CreateUser'
     CreateUserResult:
       description: This use to return create user result
       summary: Messsage use to return create user result
       payload:
         $ref: '#/components/schemas/CreateUserResult'
   schemas:
-    CreateUser:
-      description: This schemas describe payload create user message
-      type: object
-      required:
-        - event
-        - data
-      properties:
-        event:
-          type: string
-          example: create-user
-        data:
-          type: object
-          properties:
-            email:
-              type: string
-              example: justexampleemail@example.com
-            password:
-              type: string
-              example: password
-            address:
-              type: string
-              example: '25A King power'
-            dayOfBirth:
-              type: string
-              example: '2022-12-12'
-            city:
-              type: string
-              example: 'Dallas'
-            firstName:
-              type: string
-              example: firstName
-            lastName:
-              type: string
-              example: lastName
-
     CreateUserResult:
       description: This schemas describe payload to return create user result message
       type: object

@@ -230,10 +230,10 @@
             "type": "number",
             "example": 1
           },
-          "accountName": {
-            "description": "The userName show name of user",
+          "email": {
+            "description": "The email show account of user",
             "type": "string",
-            "example": "ExampleUser"
+            "example": "ExampleUser@example.com"
           },
           "address": {
             "description": "The address show where user live",
@@ -244,16 +244,31 @@
             "description": "The dayOfBirth show birthday of user",
             "type": "string",
             "example": "2023-12-22"
+          },
+          "city": {
+            "description": "The city show where user live",
+            "type": "string",
+            "example": "Tokyo"
+          },
+          "firstName": {
+            "description": "The first name of user",
+            "type": "string",
+            "example": "Ben"
+          },
+          "lastName": {
+            "description": "The last name of user",
+            "type": "string",
+            "example": "Simmons"
           }
         },
-        "required": ["userId", "userName", "dayOfbirth"]
+        "required": ["userId", "email", "dayOfbirth", "firstName", "lastName"]
       },
       "CreateUserBodySchemas": {
         "description": "Body object of User",
         "type": "object",
         "properties": {
-          "accountName": {
-            "description": "The accountName show name of user",
+          "email": {
+            "description": "The email define account of user",
             "type": "string",
             "example": "ExampleUser"
           },
@@ -271,18 +286,33 @@
             "description": "The password use to authorized user",
             "type": "string",
             "example": "password"
+          },
+          "city": {
+            "description": "The city show where user live",
+            "type": "string",
+            "example": "Tokyo"
+          },
+          "firstName": {
+            "description": "The first name of user",
+            "type": "string",
+            "example": "Ben"
+          },
+          "lastName": {
+            "description": "The last name of user",
+            "type": "string",
+            "example": "Simmons"
           }
         },
-        "required": ["userName", "birthday", "password"]
+        "required": ["email", "password", "firstName", "lastName"]
       },
       "UserAuthorizedBodySchema": {
         "description": "Body object of User used for authorized",
         "type": "object",
         "properties": {
-          "accountName": {
-            "description": "The accountName show name of user",
+          "email": {
+            "description": "The email show account name of user",
             "type": "string",
-            "example": "ExampleUser"
+            "example": "ExampleUser@example.com"
           },
           "password": {
             "description": "The password use to authorized user",
