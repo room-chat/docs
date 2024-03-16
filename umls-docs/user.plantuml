@@ -25,7 +25,7 @@ alt account not exist
     userManage -> database: POST /create-user
     "database" ---> userManage: response payload message
     note right of userManage
-        payload: message, code
+        payload: message, code, data
     end note 
     userManage ---> kafka: PUB create-user-result (success)
 else account exist
@@ -50,6 +50,8 @@ end note
 
 alt authorized success
     userManage ---> userManage: authorized success
+    userManage -> database: GET /user-information/:email
+    database ---> userManage: response
     userManage ---> bff: respone information
 else authorized failure
     userManage ---> userManage: authorized failure

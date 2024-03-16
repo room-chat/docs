@@ -142,6 +142,15 @@
                     "message": {
                       "type": "string",
                       "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string",
+                          "example": "example@example.com"
+                        }
+                      }
                     }
                   },
                   "required": ["code", "message"]
@@ -188,7 +197,7 @@
                   "example": "ExampleUser@example.com"
                 }
               },
-              "required": ["accountName"]
+              "required": ["email"]
             }
           }
         },
@@ -228,10 +237,6 @@
                 "city": {
                   "type": "string",
                   "example": "Moskva"
-                },
-                "createdAt": {
-                  "type": "string",
-                  "example": "2024-01-21"
                 }
               },
               "required": ["email", "password"]
@@ -364,7 +369,7 @@
             "example": "password"
           }
         },
-        "required": ["userId", "accountName"]
+        "required": ["userId", "email", "password"]
       }
     }
   }
